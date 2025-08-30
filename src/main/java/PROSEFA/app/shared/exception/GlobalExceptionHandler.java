@@ -11,6 +11,7 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 import java.time.LocalDateTime;
@@ -136,5 +137,29 @@ public class GlobalExceptionHandler {
                 "Método HTTP não suportado para esta rota: " + ex.getMethod());
         body.put("path", request.getRequestURI());
         return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(body);
+    }
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<Map<String, Object>> handleEnumQueryParamMismatch(MethodArgumentTypeMismatchException ex) {
+        if (ex.getRequiredType() != null && ex.getRequiredType().isEnum()) {
+            String acceptedValues = Arrays.stream(ex.getRequiredType().getEnumConstants())
+                    .map(Object::toString)
+                    .collect(Collectors.joining(", "));
+
+            return ResponseEntity.badRequest().body(
+                    baseBody(
+                            HttpStatus.BAD_REQUEST,
+                            "Invalid Enum Value",
+                            String.format(
+                                    "Valor inválido para o parâmetro '%s': '%s'. Valores aceitos: [%s]",
+                                    ex.getName(),
+                                    ex.getValue(),
+                                    acceptedValues
+                            )
+                    )
+            );
+        }
+        return ResponseEntity.badRequest().body(
+                baseBody(HttpStatus.BAD_REQUEST, "Bad Request", "Parâmetro inválido: " + ex.getName())
+        );
     }
 }
