@@ -1,0 +1,37 @@
+server:
+  port: 8082
+  servlet:
+    context-path: /api/v1.0
+
+spring:
+  mvc:
+    throw-exception-if-no-handler-found: true
+  web:
+    resources:
+      add-mappings: false
+  flyway:
+    baseline-on-migrate: true
+  datasource:
+    url: jdbc:postgresql://ep-falling-boat-adosqoel-pooler.c-2.us-east-1.aws.neon.tech/neondb
+    username: neondb_owner
+    password: npg_oq1FZSUYu0Mg
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  logging:
+    level:
+      root: INFO
+      org.springframework: DEBUG
+      org.springframework.security: TRACE
+      PROSEFA: TRACE
+      org.hibernate.SQL: DEBUG
+      org.hibernate.type.descriptor.sql: TRACE
+
+jwt:
+  secret: MuitoSegredoSuperSecretoDaApp1234567890
+  expiration-ms: 3600000

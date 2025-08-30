@@ -1,0 +1,13 @@
+package PROSEFA.app.features.auditLog.domain.entity;
+
+public enum ActionAuditLog {
+    VALIDATION_PERFORMED,
+    REQUEST_ISSUED,
+    REQUEST_IN_PROCESS,
+    REQUEST_BLOCKED,
+    INVALID_REQUEST,
+    CREATE_COMPANY,
+    COMPANY_DEACTIVATED,
+    COMPANY_SUSPENDED,
+    COMPANY_REACTIVATED
+}
