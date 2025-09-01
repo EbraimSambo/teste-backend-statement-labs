@@ -12,9 +12,12 @@ spring:
   flyway:
     baseline-on-migrate: true
   datasource:
-    url: jdbc:postgresql://ep-falling-boat-adosqoel-pooler.c-2.us-east-1.aws.neon.tech/neondb
-    username: neondb_owner
-    password: npg_oq1FZSUYu0Mg
+#    url: jdbc:postgresql://ep-falling-boat-adosqoel-pooler.c-2.us-east-1.aws.neon.tech/neondb
+#    username: neondb_owner
+#    password: npg_oq1FZSUYu0Mg
+    url: jdbc:postgresql://localhost:5432/neondb
+    username: ebraimsambo
+    password: Deezycheezy@2
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:

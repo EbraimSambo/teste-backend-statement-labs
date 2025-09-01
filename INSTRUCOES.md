@@ -371,12 +371,12 @@ mvn clean package -DskipTests
 # 1) Registrar
 curl -X POST http://localhost:8082/api/v1.0/auth/register \
   -H "Content-Type: application/json" \
-  -d '{"username":"admin","password":"changeme"}'
+  -d '{"email":"admin","password":"changeme"}'
 
 # 2) Login
 TOKEN=$(curl -s -X POST http://localhost:8082/api/v1.0/auth/login \
   -H "Content-Type: application/json" \
-  -d '{"username":"admin","password":"changeme"}' | jq -r .token)
+  -d '{"email":"admin","password":"changeme"}' | jq -r .token)
 
 echo $TOKEN
 
@@ -384,7 +384,7 @@ echo $TOKEN
 curl -X POST http://localhost:8082/api/v1.0/companies \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer $TOKEN" \
-  -d '{"name":"ACME","type":"PRIVATE","status":"ACTIVE"}'
+  -d '{"name":"ACME","type":"PRIVATE","nif":"AWIERERJREHJHDF"}'
 
 # 4) Listar Companies
 curl -H "Authorization: Bearer $TOKEN" \
